@@ -15,9 +15,12 @@ Including another URLconf
 """
 from django.views.generic import TemplateView
 from django.urls import path, re_path
+from django.conf.urls.static import static
 from server import views
+from django.conf import settings
+
 urlpatterns = [
     # Your other routes...
     path('api/test/', views.test_view, name='test_view'),  # New endpoint
-    re_path(r'^.*$', views.index), 
-]
+    re_path(r'^.*$', TemplateView.as_view(template_name='index.html')), 
+]+static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
